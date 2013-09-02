@@ -1,0 +1,13 @@
+!!! 5
+%html
+  %head
+    %meta{charset: "utf-8"}
+    %title Pigs for you
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    .container
+      .header=render 'shared/navbar'
+      .row
+        .col-lg-6= yield
