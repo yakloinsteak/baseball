@@ -1,0 +1,2 @@
+class JimController < ApplicationController
+end

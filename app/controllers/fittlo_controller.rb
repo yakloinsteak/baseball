@@ -1,0 +1,2 @@
+class FittloController < ApplicationController
+end

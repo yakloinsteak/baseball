@@ -1,0 +1,2 @@
+class FilbertController < ApplicationController
+end
