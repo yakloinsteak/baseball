@@ -10,30 +10,34 @@ class Import
     xml.xpath('/SEASON/LEAGUE').each do |league|
 
       league_name = league.at_xpath('LEAGUE_NAME').inner_text
-      League.create!(name: league_name)
+      League.find_or_create_by(name: league_name)
 
       league.xpath('DIVISION').each do |division|
 
         division_name = division.at_xpath('DIVISION_NAME').inner_text
-        Division.create!(name: division_name)
+        Division.find_or_create_by(name: division_name)
 
         division.xpath('TEAM').each do |team|
 
           team_city = team.at_xpath('TEAM_CITY').inner_text
           team_name = team.at_xpath('TEAM_NAME').inner_text
-          team_model = Team.create!(city: team_city, name: team_name)
+          team_model = Team.find_or_create_by(city: team_city, name: team_name)
 
           team.xpath('PLAYER').each do |player|
             player_surname = player.at_xpath('SURNAME').inner_text
             player_given_name = player.at_xpath('GIVEN_NAME').inner_text
             player_position = player.at_xpath('POSITION').inner_text
-            player_model = Player.create!(surname: player_surname, given_name: player_given_name, position: player_position)
+            player_model = Player.find_or_create_by(surname: player_surname, given_name: player_given_name, position: player_position)
 
             puts "Created #{player_model.given_name} of the #{team_model.city} #{team_model.name}"
 
-            player_model.teams << team_model
+            player_model.teams << team_model unless player_model.teams.include? team_model
 
-            player_model.stats.create!(
+            year = xml.at_xpath('/SEASON/YEAR').inner_text.to_i
+
+            stat = player_model.stats.where(year: year).first
+
+            attrs = {
               at_bats: player.at_xpath('AT_BATS').try(:inner_text).to_i,
               caught_stealing: player.at_xpath('CAUGHT_STEALING').try(:inner_text).to_i,
               doubles: player.at_xpath('DOUBLES').try(:inner_text).to_i,
@@ -52,8 +56,14 @@ class Import
               struck_out: player.at_xpath('STRUCK_OUT').try(:inner_text).to_i,
               triples: player.at_xpath('TRIPLES').try(:inner_text).to_i,
               walks: player.at_xpath('WALKS').try(:inner_text).to_i,
-              year: xml.at_xpath('/SEASON/YEAR').inner_text.to_i
-            )
+              year: year
+            }
+
+            if stat
+              stat.update_attributes(attrs)
+            else
+              player_model.stats.create!(attrs)
+            end
           end
         end
       end

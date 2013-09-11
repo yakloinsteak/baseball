@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe Import do
+  def do_import; Import.new(path).execute; end
   let(:path)           { File.join(Rails.root, 'spec', 'fixtures', 'stats.xml') }
-  before(:each)        { Import.new(path).execute }
+  before(:each)        { do_import }
   let(:team)           { Team.first }
   let(:division)       { Division.first }
   let(:player)         { Player.order(:surname).first }
@@ -89,5 +90,25 @@ describe Import do
     incomplete_player.stats.first.struck_out.should == 0
     incomplete_player.stats.first.triples.should == 0
     incomplete_player.stats.first.walks.should == 0
+  end
+
+  context "rerunning" do
+    before(:each) { do_import }
+
+    it "should not create duplicate leagues" do
+      League.count.should == 1
+    end
+
+    it "should not create duplicate divisions" do
+      Division.count.should == 1
+    end
+
+    it "should not create duplicate teams" do
+      Team.count.should == 1
+    end
+
+    it "should not create duplicate players" do
+      Player.count.should == 2
+    end
   end
 end
