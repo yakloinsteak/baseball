@@ -10,7 +10,5 @@
 #
 #ops = (ab * (h + bb + hbp) + tb * (ab + bb + sf + hbp)) / (ab * (ab + bb + sf + hbp))
 
-
-
 class Player < ActiveRecord::Base
 end

@@ -7,6 +7,9 @@ gem 'rails', '4.0.0'
 # data-store
 gem 'pg'
 
+# Parsing
+gem 'nokogiri'
+
 # Style/Views
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 2.3.2.2'
@@ -32,13 +35,16 @@ gem 'jbuilder', '~> 1.2'
 gem 'unicorn'
 gem 'foreman'
 
-
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Testing and debug
-#gem 'byebug' # debugger support.
-gem 'rspec'
-gem 'rspec-rails', '~> 2.0'
 gem 'pry'
 gem 'awesome_print'
+
+# Testing and debug
+#gem 'byebug' # debugger support.
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'guard-rspec'
+end
