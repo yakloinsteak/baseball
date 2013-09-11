@@ -1,4 +1,6 @@
 Demo4::Application.routes.draw do
+  resources :stats
+
   get "welcome/index"
 
   # You can have the root of your site routed with "root"
