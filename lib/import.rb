@@ -29,32 +29,44 @@ class Import
             player_position = player.at_xpath('POSITION').inner_text
             player_model = Player.create!(surname: player_surname, given_name: player_given_name, position: player_position)
 
+            puts "Created #{player_model.given_name} of the #{team_model.city} #{team_model.name}"
+
             player_model.teams << team_model
 
             player_model.stats.create!(
-              at_bats: player.at_xpath('AT_BATS').inner_text,
-              caught_stealing: player.at_xpath('CAUGHT_STEALING').inner_text,
-              doubles: player.at_xpath('DOUBLES').inner_text,
-              batting_errors: player.at_xpath('ERRORS').inner_text,
-              games: player.at_xpath('GAMES').inner_text,
-              games_started: player.at_xpath('GAMES_STARTED').inner_text,
-              hit_by_pitch: player.at_xpath('HIT_BY_PITCH').inner_text,
-              hits: player.at_xpath('HITS').inner_text,
-              home_runs: player.at_xpath('HOME_RUNS').inner_text,
-              pb: player.at_xpath('PB').inner_text,
-              rbi: player.at_xpath('RBI').inner_text,
-              runs: player.at_xpath('RUNS').inner_text,
-              sacrifice_flies: player.at_xpath('SACRIFICE_FLIES').inner_text,
-              sacrifice_hits: player.at_xpath('SACRIFICE_HITS').inner_text,
-              steals: player.at_xpath('STEALS').inner_text,
-              struck_out: player.at_xpath('STRUCK_OUT').inner_text,
-              triples: player.at_xpath('TRIPLES').inner_text,
-              walks: player.at_xpath('WALKS').inner_text,
+              at_bats: player.at_xpath('AT_BATS').try(:inner_text).to_i,
+              caught_stealing: player.at_xpath('CAUGHT_STEALING').try(:inner_text).to_i,
+              doubles: player.at_xpath('DOUBLES').try(:inner_text).to_i,
+              batting_errors: player.at_xpath('ERRORS').try(:inner_text).to_i,
+              games: player.at_xpath('GAMES').try(:inner_text).to_i,
+              games_started: player.at_xpath('GAMES_STARTED').try(:inner_text).to_i,
+              hit_by_pitch: player.at_xpath('HIT_BY_PITCH').try(:inner_text).to_i,
+              hits: player.at_xpath('HITS').try(:inner_text).to_i,
+              home_runs: player.at_xpath('HOME_RUNS').try(:inner_text).to_i,
+              pb: player.at_xpath('PB').try(:inner_text).to_i,
+              rbi: player.at_xpath('RBI').try(:inner_text).to_i,
+              runs: player.at_xpath('RUNS').try(:inner_text).to_i,
+              sacrifice_flies: player.at_xpath('SACRIFICE_FLIES').try(:inner_text).to_i,
+              sacrifice_hits: player.at_xpath('SACRIFICE_HITS').try(:inner_text).to_i,
+              steals: player.at_xpath('STEALS').try(:inner_text).to_i,
+              struck_out: player.at_xpath('STRUCK_OUT').try(:inner_text).to_i,
+              triples: player.at_xpath('TRIPLES').try(:inner_text).to_i,
+              walks: player.at_xpath('WALKS').try(:inner_text).to_i,
               year: xml.at_xpath('/SEASON/YEAR').inner_text.to_i
             )
           end
         end
       end
+    end
+  end
+
+  private
+
+  def puts str
+    if Rails.env == 'test'
+      Rails.logger.info str
+    else
+      STDOUT.puts str
     end
   end
 end
