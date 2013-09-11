@@ -29,6 +29,101 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: divisions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE divisions (
+    id integer NOT NULL,
+    league_id integer,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: divisions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE divisions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: divisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE divisions_id_seq OWNED BY divisions.id;
+
+
+--
+-- Name: leagues; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE leagues (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: leagues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE leagues_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leagues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE leagues_id_seq OWNED BY leagues.id;
+
+
+--
+-- Name: player_teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE player_teams (
+    id integer NOT NULL,
+    player_id integer,
+    team_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: player_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE player_teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: player_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE player_teams_id_seq OWNED BY player_teams.id;
+
+
+--
 -- Name: players; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -37,27 +132,6 @@ CREATE TABLE players (
     surname character varying(255),
     given_name character varying(255),
     "position" character varying(255),
-    at_bats integer,
-    caught_stealing integer,
-    doubles integer,
-    errors integer,
-    games integer,
-    games_started integer,
-    hit_by_pitch integer,
-    hits integer,
-    home_runs integer,
-    pb integer,
-    rbi integer,
-    runs integer,
-    sacrifice_flies integer,
-    sacrifice_hits integer,
-    steals integer,
-    struck_out integer,
-    triples integer,
-    walks integer,
-    ops double precision,
-    batting_average double precision,
-    stolen_bases integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -92,10 +166,155 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: stats; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE stats (
+    id integer NOT NULL,
+    player_id integer,
+    year integer,
+    at_bats integer,
+    caught_stealing integer,
+    doubles integer,
+    batting_errors integer,
+    games integer,
+    games_started integer,
+    hit_by_pitch integer,
+    hits integer,
+    home_runs integer,
+    pb integer,
+    rbi integer,
+    runs integer,
+    sacrifice_flies integer,
+    sacrifice_hits integer,
+    steals integer,
+    struck_out integer,
+    triples integer,
+    walks integer,
+    ops double precision,
+    batting_average double precision,
+    stolen_bases integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE stats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: stats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE stats_id_seq OWNED BY stats.id;
+
+
+--
+-- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE teams (
+    id integer NOT NULL,
+    name character varying(255),
+    city character varying(255),
+    division_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE teams_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY divisions ALTER COLUMN id SET DEFAULT nextval('divisions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY leagues ALTER COLUMN id SET DEFAULT nextval('leagues_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY player_teams ALTER COLUMN id SET DEFAULT nextval('player_teams_id_seq'::regclass);
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY players ALTER COLUMN id SET DEFAULT nextval('players_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY stats ALTER COLUMN id SET DEFAULT nextval('stats_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regclass);
+
+
+--
+-- Name: divisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY divisions
+    ADD CONSTRAINT divisions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY leagues
+    ADD CONSTRAINT leagues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: player_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY player_teams
+    ADD CONSTRAINT player_teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -107,45 +326,145 @@ ALTER TABLE ONLY players
 
 
 --
--- Name: index_players_on_batting_average; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: stats_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_players_on_batting_average ON players USING btree (batting_average);
-
-
---
--- Name: index_players_on_home_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_players_on_home_runs ON players USING btree (home_runs);
+ALTER TABLE ONLY stats
+    ADD CONSTRAINT stats_pkey PRIMARY KEY (id);
 
 
 --
--- Name: index_players_on_ops; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_players_on_ops ON players USING btree (ops);
-
-
---
--- Name: index_players_on_rbi; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_players_on_rbi ON players USING btree (rbi);
+ALTER TABLE ONLY teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
 
 
 --
--- Name: index_players_on_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_divisions_on_league_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_players_on_runs ON players USING btree (runs);
+CREATE INDEX index_divisions_on_league_id ON divisions USING btree (league_id);
 
 
 --
--- Name: index_players_on_stolen_bases; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_divisions_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_players_on_stolen_bases ON players USING btree (stolen_bases);
+CREATE INDEX index_divisions_on_name ON divisions USING btree (name);
+
+
+--
+-- Name: index_leagues_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_leagues_on_name ON leagues USING btree (name);
+
+
+--
+-- Name: index_player_teams_on_player_id_and_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_player_teams_on_player_id_and_team_id ON player_teams USING btree (player_id, team_id);
+
+
+--
+-- Name: index_players_on_given_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_players_on_given_name ON players USING btree (given_name);
+
+
+--
+-- Name: index_players_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_players_on_position ON players USING btree ("position");
+
+
+--
+-- Name: index_players_on_surname; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_players_on_surname ON players USING btree (surname);
+
+
+--
+-- Name: index_stats_on_batting_average; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_batting_average ON stats USING btree (batting_average);
+
+
+--
+-- Name: index_stats_on_home_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_home_runs ON stats USING btree (home_runs);
+
+
+--
+-- Name: index_stats_on_ops; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_ops ON stats USING btree (ops);
+
+
+--
+-- Name: index_stats_on_player_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_player_id ON stats USING btree (player_id);
+
+
+--
+-- Name: index_stats_on_rbi; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_rbi ON stats USING btree (rbi);
+
+
+--
+-- Name: index_stats_on_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_runs ON stats USING btree (runs);
+
+
+--
+-- Name: index_stats_on_stolen_bases; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_stolen_bases ON stats USING btree (stolen_bases);
+
+
+--
+-- Name: index_stats_on_year; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_stats_on_year ON stats USING btree (year);
+
+
+--
+-- Name: index_teams_on_city; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_teams_on_city ON teams USING btree (city);
+
+
+--
+-- Name: index_teams_on_division_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_teams_on_division_id ON teams USING btree (division_id);
+
+
+--
+-- Name: index_teams_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_teams_on_name ON teams USING btree (name);
 
 
 --
@@ -162,3 +481,13 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20130911015114');
+
+INSERT INTO schema_migrations (version) VALUES ('20130911022113');
+
+INSERT INTO schema_migrations (version) VALUES ('20130911022138');
+
+INSERT INTO schema_migrations (version) VALUES ('20130911022149');
+
+INSERT INTO schema_migrations (version) VALUES ('20130911022200');
+
+INSERT INTO schema_migrations (version) VALUES ('20130911023343');

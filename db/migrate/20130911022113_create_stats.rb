@@ -6,7 +6,7 @@ class CreateStats < ActiveRecord::Migration
       t.integer :at_bats
       t.integer :caught_stealing
       t.integer :doubles
-      t.integer :errors
+      t.integer :batting_errors
       t.integer :games
       t.integer :games_started
       t.integer :hit_by_pitch

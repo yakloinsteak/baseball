@@ -44,37 +44,13 @@ ActiveRecord::Schema.define(version: 20130911023343) do
     t.string   "surname"
     t.string   "given_name"
     t.string   "position"
-    t.integer  "at_bats"
-    t.integer  "caught_stealing"
-    t.integer  "doubles"
-    t.integer  "errors"
-    t.integer  "games"
-    t.integer  "games_started"
-    t.integer  "hit_by_pitch"
-    t.integer  "hits"
-    t.integer  "home_runs"
-    t.integer  "pb"
-    t.integer  "rbi"
-    t.integer  "runs"
-    t.integer  "sacrifice_flies"
-    t.integer  "sacrifice_hits"
-    t.integer  "steals"
-    t.integer  "struck_out"
-    t.integer  "triples"
-    t.integer  "walks"
-    t.float    "ops"
-    t.float    "batting_average"
-    t.integer  "stolen_bases"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "players", ["batting_average"], name: "index_players_on_batting_average", using: :btree
-  add_index "players", ["home_runs"], name: "index_players_on_home_runs", using: :btree
-  add_index "players", ["ops"], name: "index_players_on_ops", using: :btree
-  add_index "players", ["rbi"], name: "index_players_on_rbi", using: :btree
-  add_index "players", ["runs"], name: "index_players_on_runs", using: :btree
-  add_index "players", ["stolen_bases"], name: "index_players_on_stolen_bases", using: :btree
+  add_index "players", ["given_name"], name: "index_players_on_given_name", using: :btree
+  add_index "players", ["position"], name: "index_players_on_position", using: :btree
+  add_index "players", ["surname"], name: "index_players_on_surname", using: :btree
 
   create_table "stats", force: true do |t|
     t.integer  "player_id"
@@ -82,7 +58,7 @@ ActiveRecord::Schema.define(version: 20130911023343) do
     t.integer  "at_bats"
     t.integer  "caught_stealing"
     t.integer  "doubles"
-    t.integer  "errors"
+    t.integer  "batting_errors"
     t.integer  "games"
     t.integer  "games_started"
     t.integer  "hit_by_pitch"
