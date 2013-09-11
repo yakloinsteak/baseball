@@ -11,7 +11,7 @@
 #ops = (ab * (h + bb + hbp) + tb * (ab + bb + sf + hbp)) / (ab * (ab + bb + sf + hbp))
 
 class Player < ActiveRecord::Base
-  has_many :team_players
-  has_many :teams, through: :team_players
+  has_many :contracts
+  has_many :teams, through: :contracts
   has_many :stats
 end

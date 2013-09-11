@@ -29,6 +29,38 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: contracts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE contracts (
+    id integer NOT NULL,
+    player_id integer,
+    team_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: contracts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE contracts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: contracts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE contracts_id_seq OWNED BY contracts.id;
+
+
+--
 -- Name: divisions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -89,38 +121,6 @@ CREATE SEQUENCE leagues_id_seq
 --
 
 ALTER SEQUENCE leagues_id_seq OWNED BY leagues.id;
-
-
---
--- Name: player_teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE player_teams (
-    id integer NOT NULL,
-    player_id integer,
-    team_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: player_teams_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE player_teams_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: player_teams_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE player_teams_id_seq OWNED BY player_teams.id;
 
 
 --
@@ -255,6 +255,13 @@ ALTER SEQUENCE teams_id_seq OWNED BY teams.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY contracts ALTER COLUMN id SET DEFAULT nextval('contracts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY divisions ALTER COLUMN id SET DEFAULT nextval('divisions_id_seq'::regclass);
 
 
@@ -263,13 +270,6 @@ ALTER TABLE ONLY divisions ALTER COLUMN id SET DEFAULT nextval('divisions_id_seq
 --
 
 ALTER TABLE ONLY leagues ALTER COLUMN id SET DEFAULT nextval('leagues_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY player_teams ALTER COLUMN id SET DEFAULT nextval('player_teams_id_seq'::regclass);
 
 
 --
@@ -294,6 +294,14 @@ ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regcl
 
 
 --
+-- Name: contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY contracts
+    ADD CONSTRAINT contracts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: divisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -307,14 +315,6 @@ ALTER TABLE ONLY divisions
 
 ALTER TABLE ONLY leagues
     ADD CONSTRAINT leagues_pkey PRIMARY KEY (id);
-
-
---
--- Name: player_teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY player_teams
-    ADD CONSTRAINT player_teams_pkey PRIMARY KEY (id);
 
 
 --
@@ -342,6 +342,13 @@ ALTER TABLE ONLY teams
 
 
 --
+-- Name: index_contracts_on_player_id_and_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_contracts_on_player_id_and_team_id ON contracts USING btree (player_id, team_id);
+
+
+--
 -- Name: index_divisions_on_league_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -360,13 +367,6 @@ CREATE INDEX index_divisions_on_name ON divisions USING btree (name);
 --
 
 CREATE INDEX index_leagues_on_name ON leagues USING btree (name);
-
-
---
--- Name: index_player_teams_on_player_id_and_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_player_teams_on_player_id_and_team_id ON player_teams USING btree (player_id, team_id);
 
 
 --

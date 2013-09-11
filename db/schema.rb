@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20130911023343) do
 
+  create_table "contracts", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contracts", ["player_id", "team_id"], name: "index_contracts_on_player_id_and_team_id", unique: true, using: :btree
+
   create_table "divisions", force: true do |t|
     t.integer  "league_id"
     t.string   "name"
@@ -30,15 +39,6 @@ ActiveRecord::Schema.define(version: 20130911023343) do
   end
 
   add_index "leagues", ["name"], name: "index_leagues_on_name", using: :btree
-
-  create_table "player_teams", force: true do |t|
-    t.integer  "player_id"
-    t.integer  "team_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "player_teams", ["player_id", "team_id"], name: "index_player_teams_on_player_id_and_team_id", unique: true, using: :btree
 
   create_table "players", force: true do |t|
     t.string   "surname"

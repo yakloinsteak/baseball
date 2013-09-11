@@ -21,9 +21,7 @@ describe Import do
   end
 
   it "should import correct number players" do
-    pending "figuring out error column problem" do
-      Player.count.should == 1
-    end
+    Player.count.should == 1
   end
 
   it "should import league name" do
@@ -40,13 +38,34 @@ describe Import do
   end
 
   it "should import player name" do
-    pending
     player.surname.should == 'Malloy'
     player.given_name.should == 'Marty'
+    player.position.should == 'Second Base'
+  end
+
+  it "should import player team" do
+    player.teams.first.name.should == 'Braves'
   end
 
   it "should import player stats" do
-    pending
-    #<PLAYER><SURNAME>Malloy</SURNAME><GIVEN_NAME>Marty</GIVEN_NAME><POSITION>Second Base</POSITION><GAMES>11</GAMES><GAMES_STARTED>8</GAMES_STARTED><AT_BATS>28</AT_BATS><RUNS>3</RUNS><HITS>5</HITS><DOUBLES>1</DOUBLES><TRIPLES>0</TRIPLES><HOME_RUNS>1</HOME_RUNS><RBI>1</RBI><STEALS>0</STEALS><CAUGHT_STEALING>0</CAUGHT_STEALING><SACRIFICE_HITS>0</SACRIFICE_HITS><SACRIFICE_FLIES>0</SACRIFICE_FLIES><ERRORS>0</ERRORS><PB>0</PB><WALKS>2</WALKS><STRUCK_OUT>2</STRUCK_OUT><HIT_BY_PITCH>0</HIT_BY_PITCH></PLAYER>
+    player.stats.first.at_bats.should == 28
+    player.stats.first.caught_stealing.should == 0
+    player.stats.first.doubles.should == 1
+    player.stats.first.batting_errors.should == 0
+    player.stats.first.games.should == 11
+    player.stats.first.games_started.should == 8
+    player.stats.first.hit_by_pitch.should == 0
+    player.stats.first.hits.should == 5
+    player.stats.first.home_runs.should == 1
+    player.stats.first.pb.should == 0
+    player.stats.first.rbi.should == 1
+    player.stats.first.runs.should == 3
+    player.stats.first.sacrifice_flies.should == 0
+    player.stats.first.sacrifice_hits.should == 0
+    player.stats.first.steals.should == 0
+    player.stats.first.struck_out.should == 2
+    player.stats.first.triples.should == 0
+    player.stats.first.walks.should == 2
+    player.stats.first.year.should == 1998
   end
 end
