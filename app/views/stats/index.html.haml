@@ -3,12 +3,12 @@
     %tr
       %td
       %td Name
-      %td Batting Average
-      %td Home Runs
-      %td RBI
-      %td Runs
-      %td Stolen Bases
-      %td OPS
+      %td.sortable= link_to "Batting Average", stats_path(format: :html), remote: true
+      %td.sortable= link_to "Home Runs", stats_path(format: :html), remote: true
+      %td.sortable= link_to "RBI", stats_path(format: :html), remote: true
+      %td.sortable= link_to "Runs", stats_path(format: :html), remote: true
+      %td.sortable= link_to "Stolen Bases", stats_path(format: :html), remote: true
+      %td.sortable= link_to "OPS", stats_path(format: :html), remote: true
   %tbody
     - @stats.each_with_index do |stat, index|
       %tr
