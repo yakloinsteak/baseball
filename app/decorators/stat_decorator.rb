@@ -18,7 +18,9 @@ class StatDecorator < Draper::Decorator
     #<span class="label label-warning">Warning</span>
     #<span class="label label-danger">Danger</span>
 
-    val = if object.ops >= 0.9000
+    val = if object.ops.nil?
+      'N/A'
+    elsif object.ops >= 0.9000
       'Great'
     elsif object.ops > 0.8333
       'Very Good'
@@ -30,10 +32,8 @@ class StatDecorator < Draper::Decorator
       'Below Average'
     elsif object.ops > 0.5667
       'Poor'
-    elsif object.ops > 0.0
-      'Atrocious'
     else
-      'N/A'
+      'Atrocious'
     end
 
     _pretty_float(object.ops) + " (#{val})"
