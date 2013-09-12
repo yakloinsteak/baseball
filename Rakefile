@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Demo4::Application.load_tasks
+Baseball::Application.load_tasks

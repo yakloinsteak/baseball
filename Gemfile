@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-#  Core
+# Core OO and MVC
 gem 'rails', '4.0.0'
+gem 'draper'
 
 # data-store
 gem 'pg'
@@ -19,30 +20,20 @@ gem 'haml-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'turbolinks'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
+# Serving
 gem 'unicorn'
 gem 'foreman'
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
+# Debug
 gem 'pry'
 gem 'awesome_print'
-
-# Testing and debug
 #gem 'byebug' # debugger support.
+
 group :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 2.0'

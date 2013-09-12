@@ -1,4 +1,4 @@
-Demo4::Application.routes.draw do
+Baseball::Application.routes.draw do
   root 'stats#index'
 
   # Example of regular route:

@@ -1,5 +1,5 @@
 class StatsController < ApplicationController
   def index
-    @players = Player.first(25)
+    @stats = Stat.search(params).decorate
   end
 end

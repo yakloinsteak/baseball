@@ -1,4 +1,6 @@
 class Stat < ActiveRecord::Base
+  include Sortable
+
   belongs_to :player
 
   before_save :write_batting_average
