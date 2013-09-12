@@ -5,8 +5,10 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'draper'
 
-# data-store
+# data-store (including caching)
 gem 'pg'
+gem 'memcachier'
+gem 'dalli'
 
 # Parsing
 gem 'nokogiri'
@@ -21,23 +23,21 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Serving
+# HTTP Serving
 gem 'unicorn'
 gem 'foreman'
 
-# Debug
+# Debugging and Logging
 gem 'pry'
 gem 'awesome_print'
-#gem 'byebug' # debugger support.
-#gem "sentry-raven", :git => "https:/github.com/getsentry/raven-ruby.git"
-#gem "sentry-raven", :git => "git@github.com:getsentry/raven-ruby.git"
+#gem 'byebug'
 
-# Logging on Heroku
-gem 'rails_12factor', group: :production
+group :production do
+  # Logging on Heroku
+  gem 'rails_12factor'
+end
 
 group :test do
   gem 'rspec'
