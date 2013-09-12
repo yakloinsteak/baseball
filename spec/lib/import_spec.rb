@@ -71,25 +71,25 @@ describe Import do
     player.stats.first.year.should == 1998
   end
 
-  it "should treat a lack of stats as zero" do
-    incomplete_player.stats.first.at_bats.should == 0
-    incomplete_player.stats.first.caught_stealing.should == 0
-    incomplete_player.stats.first.doubles.should == 0
-    incomplete_player.stats.first.batting_errors.should == 0
-    incomplete_player.stats.first.games.should == 0
-    incomplete_player.stats.first.games_started.should == 0
-    incomplete_player.stats.first.hit_by_pitch.should == 0
-    incomplete_player.stats.first.hits.should == 0
-    incomplete_player.stats.first.home_runs.should == 0
-    incomplete_player.stats.first.pb.should == 0
-    incomplete_player.stats.first.rbi.should == 0
-    incomplete_player.stats.first.runs.should == 0
-    incomplete_player.stats.first.sacrifice_flies.should == 0
-    incomplete_player.stats.first.sacrifice_hits.should == 0
-    incomplete_player.stats.first.steals.should == 0
-    incomplete_player.stats.first.struck_out.should == 0
-    incomplete_player.stats.first.triples.should == 0
-    incomplete_player.stats.first.walks.should == 0
+  it "should treat a lack of stats as undefined in the database" do
+    incomplete_player.stats.first.at_bats.should be_nil
+    incomplete_player.stats.first.caught_stealing.should be_nil
+    incomplete_player.stats.first.doubles.should be_nil
+    incomplete_player.stats.first.batting_errors.should be_nil
+    incomplete_player.stats.first.games.should be_nil
+    incomplete_player.stats.first.games_started.should be_nil
+    incomplete_player.stats.first.hit_by_pitch.should be_nil
+    incomplete_player.stats.first.hits.should be_nil
+    incomplete_player.stats.first.home_runs.should be_nil
+    incomplete_player.stats.first.pb.should be_nil
+    incomplete_player.stats.first.rbi.should be_nil
+    incomplete_player.stats.first.runs.should be_nil
+    incomplete_player.stats.first.sacrifice_flies.should be_nil
+    incomplete_player.stats.first.sacrifice_hits.should be_nil
+    incomplete_player.stats.first.steals.should be_nil
+    incomplete_player.stats.first.struck_out.should be_nil
+    incomplete_player.stats.first.triples.should be_nil
+    incomplete_player.stats.first.walks.should be_nil
   end
 
   context "rerunning" do

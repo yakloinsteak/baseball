@@ -16,6 +16,8 @@ class OPS
 
   def value
     _numerator.to_f / _denominator
+  rescue NoMethodError
+    return nil
   end
 
   private
@@ -29,6 +31,7 @@ class OPS
     at_bats * _magic_sum
   end
 
+  #TDB
   # FIXME: what would you call this?
   def _magic_sum
     at_bats + walks + sacrifice_flies + hit_by_pitch
