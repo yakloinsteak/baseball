@@ -11,6 +11,10 @@ class StatDecorator < Draper::Decorator
     _pretty_float object.ops
   end
 
+  def player_name
+    [object.player.surname, object.player.given_name].join(', ')
+  end
+
   private
 
   def _pretty_float num
