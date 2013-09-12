@@ -4,6 +4,7 @@
     %tr
       %td
       %td Name
+      %td Position
       %td.sortable= stats_link_to 'Batting Average', 'batting_average desc'
       %td.sortable= stats_link_to 'Home Runs', 'home_runs desc'
       %td.sortable= stats_link_to 'RBI', 'rbi desc'
@@ -15,6 +16,7 @@
       %tr
         %td= index+1
         %td= render partial: 'detail', locals: {player: stat.player, stat: stat}
+        %td= stat.player.position
         %td= stat.batting_average
         %td= stat.home_runs
         %td= stat.rbi

@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20130911023343) do
     t.datetime "updated_at"
   end
 
-  add_index "divisions", ["league_id"], name: "index_divisions_on_league_id", using: :btree
+  add_index "divisions", ["league_id", "name"], name: "index_divisions_on_league_id_and_name", unique: true, using: :btree
   add_index "divisions", ["name"], name: "index_divisions_on_name", using: :btree
 
   create_table "leagues", force: true do |t|
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20130911023343) do
     t.datetime "updated_at"
   end
 
-  add_index "leagues", ["name"], name: "index_leagues_on_name", using: :btree
+  add_index "leagues", ["name"], name: "index_leagues_on_name", unique: true, using: :btree
 
   create_table "players", force: true do |t|
     t.string   "surname"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20130911023343) do
   end
 
   add_index "teams", ["city"], name: "index_teams_on_city", using: :btree
-  add_index "teams", ["division_id"], name: "index_teams_on_division_id", using: :btree
+  add_index "teams", ["division_id", "name", "city"], name: "index_teams_on_division_id_and_name_and_city", unique: true, using: :btree
   add_index "teams", ["name"], name: "index_teams_on_name", using: :btree
 
 end

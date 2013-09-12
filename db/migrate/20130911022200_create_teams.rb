@@ -9,6 +9,6 @@ class CreateTeams < ActiveRecord::Migration
 
     add_index :teams, :name
     add_index :teams, :city
-    add_index :teams, :division_id
+    add_index :teams, [:division_id, :name, :city], unique: true
   end
 end

@@ -5,6 +5,6 @@ class CreateLeagues < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :leagues, :name
+    add_index :leagues, :name, unique: true
   end
 end

@@ -6,7 +6,7 @@ class CreateDivisions < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :divisions, :league_id
     add_index :divisions, :name
+    add_index :divisions, [:league_id, :name], unique: true
   end
 end

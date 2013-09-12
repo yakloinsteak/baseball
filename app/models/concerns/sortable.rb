@@ -15,7 +15,7 @@ module Sortable
     #TDB
     scope :search, lambda { |p|
       where(year: p.fetch(:year, DEFAULT_YEAR)).
-      includes(:player).
+      includes(:player => {:teams => {:division => :league}}).
       order(_nulls_last p.fetch(:order_by, DEFAULT_ORDER)).
       limit(MAX_RESULTS)
     }
