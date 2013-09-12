@@ -33,6 +33,11 @@ gem 'foreman'
 gem 'pry'
 gem 'awesome_print'
 #gem 'byebug' # debugger support.
+#gem "sentry-raven", :git => "https:/github.com/getsentry/raven-ruby.git"
+#gem "sentry-raven", :git => "git@github.com:getsentry/raven-ruby.git"
+
+# Logging on Heroku
+gem 'rails_12factor', group: :production
 
 group :test do
   gem 'rspec'
