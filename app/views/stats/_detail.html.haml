@@ -1,0 +1,23 @@
+=player.modal_link
+
+%div.modal.fade{id: "player_#{player.id}", "aria-hidden" => "true", "aria-labelledby" => player.name, :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h4.modal-title
+          =player.name
+          of the
+          =player.team_name
+          %span.badge=stat.year
+      .modal-body
+        %table.table.table-compressed.table-hover
+          %tr
+            %td Division
+            %td=player.team.division.name
+          %tr
+            %td League
+            %td=player.team.division.league.name
+          = stat.all_as_rows
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

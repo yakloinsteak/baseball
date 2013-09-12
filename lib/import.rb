@@ -6,22 +6,23 @@ class Import
     @xml = Nokogiri::XML(File.open(path))
   end
 
+  #TDB
   def execute
     xml.xpath('/SEASON/LEAGUE').each do |league|
 
       league_name = league.at_xpath('LEAGUE_NAME').inner_text
-      League.find_or_create_by(name: league_name)
+      league_model = League.find_or_create_by(name: league_name)
 
       league.xpath('DIVISION').each do |division|
 
         division_name = division.at_xpath('DIVISION_NAME').inner_text
-        Division.find_or_create_by(name: division_name)
+        division_model = Division.find_or_create_by(name: division_name, league: league_model)
 
         division.xpath('TEAM').each do |team|
 
           team_city = team.at_xpath('TEAM_CITY').inner_text
           team_name = team.at_xpath('TEAM_NAME').inner_text
-          team_model = Team.find_or_create_by(city: team_city, name: team_name)
+          team_model = Team.find_or_create_by(city: team_city, name: team_name, division: division_model)
 
           team.xpath('PLAYER').each do |player|
             player_surname = player.at_xpath('SURNAME').inner_text

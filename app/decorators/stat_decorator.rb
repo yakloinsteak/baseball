@@ -12,9 +12,14 @@ class StatDecorator < Draper::Decorator
     _pretty_float object.ops
   end
 
-  def player_name
-    [object.player.surname, object.player.given_name].join(', ')
+  #TDB
+  def all_as_rows
+    object.attributes.map do |key, value|
+      next if ['created_at', 'updated_at', 'id', 'player_id', 'year'].include? key
+      "<tr><td>#{key.titleize}</td><td>#{value}</td></tr>"
+    end.flatten.join.html_safe
   end
+
 
   private
 
