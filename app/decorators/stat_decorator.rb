@@ -1,5 +1,6 @@
 class StatDecorator < Draper::Decorator
   delegate_all
+  decorates_association :player
 
   FORMAT = "%.4f"
 

@@ -13,7 +13,7 @@
     - @stats.each_with_index do |stat, index|
       %tr
         %td= index+1
-        %td= stat.player_name
+        %td= stat.player.link
         %td= stat.batting_average
         %td= stat.home_runs
         %td= stat.rbi
