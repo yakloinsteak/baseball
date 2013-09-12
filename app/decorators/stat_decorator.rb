@@ -8,8 +8,35 @@ class StatDecorator < Draper::Decorator
     _pretty_float object.batting_average
   end
 
+  #TDB
   def ops
-    _pretty_float object.ops
+
+    #<span class="label label-default">Default</span>
+    #<span class="label label-primary">Primary</span>
+    #<span class="label label-success">Success</span>
+    #<span class="label label-info">Info</span>
+    #<span class="label label-warning">Warning</span>
+    #<span class="label label-danger">Danger</span>
+
+    val = if object.ops >= 0.9000
+      'Great'
+    elsif object.ops > 0.8333
+      'Very Good'
+    elsif object.ops > 0.7667
+      'Above Average'
+    elsif object.ops > 0.7000
+      'Average'
+    elsif object.ops > 0.6334
+      'Below Average'
+    elsif object.ops > 0.5667
+      'Poor'
+    elsif object.ops > 0.0
+      'Atrocious'
+    else
+      'N/A'
+    end
+
+    _pretty_float(object.ops) + " (#{val})"
   end
 
   #TDB
@@ -19,7 +46,6 @@ class StatDecorator < Draper::Decorator
       "<tr><td>#{key.titleize}</td><td>#{value}</td></tr>"
     end.flatten.join.html_safe
   end
-
 
   private
 

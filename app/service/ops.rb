@@ -16,6 +16,7 @@ class OPS
 
   #TDB
   def value
+    return nil if _denominator == 0
     _numerator.to_f / _denominator
   rescue NoMethodError
     return nil
