@@ -7,7 +7,7 @@
       %td.sortable= stats_link_to 'Home Runs', 'home_runs desc'
       %td.sortable= stats_link_to 'RBI', 'rbi desc'
       %td.sortable= stats_link_to 'Runs', 'runs desc'
-      %td.sortable= stats_link_to 'Stolen Bases', 'stolen_bases desc'
+      %td.sortable= stats_link_to 'Steals', 'steals desc'
       %td.sortable= stats_link_to 'OPS', 'ops desc'
   %tbody
     - @stats.each_with_index do |stat, index|
@@ -18,5 +18,5 @@
         %td= stat.home_runs
         %td= stat.rbi
         %td= stat.runs
-        %td= stat.stolen_bases
+        %td= stat.steals
         %td= stat.ops

@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 20130911023343) do
     t.integer  "saves"
     t.integer  "shut_outs"
     t.integer  "steals"
-    t.integer  "stolen_bases"
     t.integer  "struck_out"
     t.integer  "struck_out_batter"
     t.integer  "throws"
@@ -100,7 +99,7 @@ ActiveRecord::Schema.define(version: 20130911023343) do
   add_index "stats", ["player_id"], name: "index_stats_on_player_id", using: :btree
   add_index "stats", ["rbi"], name: "index_stats_on_rbi", using: :btree
   add_index "stats", ["runs"], name: "index_stats_on_runs", using: :btree
-  add_index "stats", ["stolen_bases"], name: "index_stats_on_stolen_bases", using: :btree
+  add_index "stats", ["steals"], name: "index_stats_on_steals", using: :btree
   add_index "stats", ["year"], name: "index_stats_on_year", using: :btree
 
   create_table "teams", force: true do |t|

@@ -14,6 +14,7 @@ class OPS
     hits + 2 * doubles + 3 * triples + 4 * home_runs
   end
 
+  #TDB
   def value
     _numerator.to_f / _denominator
   rescue NoMethodError

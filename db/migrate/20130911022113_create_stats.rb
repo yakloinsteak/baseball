@@ -29,7 +29,6 @@ class CreateStats < ActiveRecord::Migration
       t.integer :saves
       t.integer :shut_outs
       t.integer :steals
-      t.integer :stolen_bases
       t.integer :struck_out
       t.integer :struck_out_batter
       t.integer :throws
@@ -49,6 +48,6 @@ class CreateStats < ActiveRecord::Migration
     add_index :stats, :home_runs
     add_index :stats, :ops
     add_index :stats, :batting_average
-    add_index :stats, :stolen_bases
+    add_index :stats, :steals
   end
 end

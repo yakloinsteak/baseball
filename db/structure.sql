@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: contracts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: contracts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE contracts (
@@ -61,7 +61,7 @@ ALTER SEQUENCE contracts_id_seq OWNED BY contracts.id;
 
 
 --
--- Name: divisions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: divisions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE divisions (
@@ -93,7 +93,7 @@ ALTER SEQUENCE divisions_id_seq OWNED BY divisions.id;
 
 
 --
--- Name: leagues; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: leagues; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE leagues (
@@ -124,7 +124,7 @@ ALTER SEQUENCE leagues_id_seq OWNED BY leagues.id;
 
 
 --
--- Name: players; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: players; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE players (
@@ -157,7 +157,7 @@ ALTER SEQUENCE players_id_seq OWNED BY players.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -166,7 +166,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: stats; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: stats; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE stats (
@@ -199,7 +199,6 @@ CREATE TABLE stats (
     saves integer,
     shut_outs integer,
     steals integer,
-    stolen_bases integer,
     struck_out integer,
     struck_out_batter integer,
     throws integer,
@@ -233,7 +232,7 @@ ALTER SEQUENCE stats_id_seq OWNED BY stats.id;
 
 
 --
--- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: teams; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE teams (
@@ -308,7 +307,7 @@ ALTER TABLE ONLY teams ALTER COLUMN id SET DEFAULT nextval('teams_id_seq'::regcl
 
 
 --
--- Name: contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY contracts
@@ -316,7 +315,7 @@ ALTER TABLE ONLY contracts
 
 
 --
--- Name: divisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: divisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY divisions
@@ -324,7 +323,7 @@ ALTER TABLE ONLY divisions
 
 
 --
--- Name: leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: leagues_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY leagues
@@ -332,7 +331,7 @@ ALTER TABLE ONLY leagues
 
 
 --
--- Name: players_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: players_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY players
@@ -340,7 +339,7 @@ ALTER TABLE ONLY players
 
 
 --
--- Name: stats_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: stats_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY stats
@@ -348,7 +347,7 @@ ALTER TABLE ONLY stats
 
 
 --
--- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY teams
@@ -356,133 +355,133 @@ ALTER TABLE ONLY teams
 
 
 --
--- Name: index_contracts_on_player_id_and_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_contracts_on_player_id_and_team_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_contracts_on_player_id_and_team_id ON contracts USING btree (player_id, team_id);
 
 
 --
--- Name: index_divisions_on_league_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_divisions_on_league_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_divisions_on_league_id ON divisions USING btree (league_id);
 
 
 --
--- Name: index_divisions_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_divisions_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_divisions_on_name ON divisions USING btree (name);
 
 
 --
--- Name: index_leagues_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_leagues_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_leagues_on_name ON leagues USING btree (name);
 
 
 --
--- Name: index_players_on_given_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_players_on_given_name; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_players_on_given_name ON players USING btree (given_name);
 
 
 --
--- Name: index_players_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_players_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_players_on_position ON players USING btree ("position");
 
 
 --
--- Name: index_players_on_surname; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_players_on_surname; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_players_on_surname ON players USING btree (surname);
 
 
 --
--- Name: index_stats_on_batting_average; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_batting_average; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_batting_average ON stats USING btree (batting_average);
 
 
 --
--- Name: index_stats_on_home_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_home_runs; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_home_runs ON stats USING btree (home_runs);
 
 
 --
--- Name: index_stats_on_ops; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_ops; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_ops ON stats USING btree (ops);
 
 
 --
--- Name: index_stats_on_player_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_player_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_player_id ON stats USING btree (player_id);
 
 
 --
--- Name: index_stats_on_rbi; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_rbi; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_rbi ON stats USING btree (rbi);
 
 
 --
--- Name: index_stats_on_runs; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_runs; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_runs ON stats USING btree (runs);
 
 
 --
--- Name: index_stats_on_stolen_bases; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_steals; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
-CREATE INDEX index_stats_on_stolen_bases ON stats USING btree (stolen_bases);
+CREATE INDEX index_stats_on_steals ON stats USING btree (steals);
 
 
 --
--- Name: index_stats_on_year; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_stats_on_year; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_stats_on_year ON stats USING btree (year);
 
 
 --
--- Name: index_teams_on_city; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_teams_on_city; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_teams_on_city ON teams USING btree (city);
 
 
 --
--- Name: index_teams_on_division_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_teams_on_division_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_teams_on_division_id ON teams USING btree (division_id);
 
 
 --
--- Name: index_teams_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_teams_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_teams_on_name ON teams USING btree (name);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
