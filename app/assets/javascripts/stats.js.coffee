@@ -1,3 +1,9 @@
 $(document).ready ->
-  $('td.sortable').bind 'ajax:success', (evt, data, status, xhr) ->
-    alert data
+  install_handler = () ->
+    $('.StatsController td.sortable').bind 'ajax:success', update
+
+  update = (evt, data, status, xhr) ->
+    $('.content').html xhr.responseText
+    install_handler()
+
+  install_handler()

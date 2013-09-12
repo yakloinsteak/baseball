@@ -7,6 +7,7 @@ module Sortable
 
   included do
     scope :search, lambda { |p|
+      Rails.logger.warn p.inspect
       where(year: p.fetch(:year, DEFAULT_YEAR)).
       includes(:player).
       order(p.fetch(:order_by, DEFAULT_ORDER)).

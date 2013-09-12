@@ -1,5 +1,5 @@
 !!! 5
-%html
+%html{:class => controller.class.name}
   %head
     %meta{charset: "utf-8"}
     %title Baseball Stats
@@ -10,4 +10,5 @@
     .container
       .header=render 'shared/navbar'
       .row
-        .col-lg-6= yield
+        .col-lg-9.content= yield
+        .col-lg-3
