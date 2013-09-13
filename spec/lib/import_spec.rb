@@ -4,8 +4,8 @@ describe Import do
   def do_import; Import.new(path).execute; end
   let(:path)     { File.join(Rails.root, 'spec', 'fixtures', 'stats.xml') }
   before(:each)  { do_import }
-  let(:team)     { Team.first }
-  let(:division) { Division.first }
+  let(:team)     { Team.order(:name).first }
+  let(:division) { Division.order(:name).first }
   let(:player)   { Player.order(:surname).first }
   let(:incomplete_player) { Player.order(:surname).second }
   let(:league)   { League.first }
@@ -15,15 +15,15 @@ describe Import do
   end
 
   it "should import correct number divisions" do
-    Division.count.should == 1
+    Division.count.should == 2
   end
 
   it "should import correct number teams" do
-    Team.count.should == 1
+    Team.count.should == 2
   end
 
   it "should import correct number players" do
-    Player.count.should == 2
+    Player.count.should == 3
   end
 
   it "should import league name" do
@@ -42,11 +42,11 @@ describe Import do
   it "should import player name" do
     player.surname.should == 'Malloy'
     player.given_name.should == 'Marty'
-    player.position.should == 'Second Base'
+    player.position.should == 'Second Base/Third Base'
   end
 
   it "should import player team" do
-    player.teams.first.name.should == 'Braves'
+    player.teams.order(:name).first.name.should == 'Braves'
   end
 
   it "should import player stats" do
@@ -93,7 +93,14 @@ describe Import do
   end
 
   it "should handle players on multiple teams" do
-    pending
+    player.teams.count.should == 2
+    player.contracts.count.should == 2
+  end
+
+  it "should associate players' contracts with a year and position" do
+    #TDB
+    player.contracts.order(:position).map(&:position).should == ['Second Base', 'Third Base']
+    player.contracts.map(&:year).should == [1998, 1998]
   end
 
   context "rerunning" do
@@ -104,15 +111,15 @@ describe Import do
     end
 
     it "should not create duplicate divisions" do
-      Division.count.should == 1
+      Division.count.should == 2
     end
 
     it "should not create duplicate teams" do
-      Team.count.should == 1
+      Team.count.should == 2
     end
 
     it "should not create duplicate players" do
-      Player.count.should == 2
+      Player.count.should == 3
     end
   end
 end

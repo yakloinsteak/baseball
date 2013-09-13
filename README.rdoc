@@ -2,6 +2,8 @@
 
 * Lack of a value in the XML file results in nil for that value (not 0).
 
+* Players can be on multiple teams and have contracts to play a single specific position for a single year.
+
 * http:/en.wikipedia.org/wiki/Batting_average/
   In baseball, the batting average (BA) is defined as the number of hits divided by at bats
 

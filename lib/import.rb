@@ -12,8 +12,12 @@ class Import
          _for_each_player_of team do |player|
             #TDB: Try running import multiple times and checking
             #TDB: finish cleaning this
-            #TDB: Position overlap if more than one record. check that. Position maybe into contract?
-            @player_model.teams << @team_model unless @player_model.teams.include? @team_model
+
+            @contract = Contract.find_or_create_by(player: @player_model, team: @team_model, year: year, position: @player_position)
+
+            #@player_model.contracts << @team_model unless @player_model.teams.include? @team_model
+
+            #@player_model.teams << @team_model unless @player_model.teams.include? @team_model
 
             stat = @player_model.stats.where(year: year).first
 
@@ -66,8 +70,8 @@ class Import
     team.xpath('PLAYER').each do |player|
       player_surname = player.at_xpath('SURNAME').inner_text
       player_given_name = player.at_xpath('GIVEN_NAME').inner_text
-      player_position = player.at_xpath('POSITION').inner_text
-      @player_model = Player.find_or_create_by(surname: player_surname, given_name: player_given_name, position: player_position)
+      @player_position = player.at_xpath('POSITION').inner_text
+      @player_model = Player.find_or_create_by(surname: player_surname, given_name: player_given_name)
 
       puts "Created #{@player_model.given_name} of the #{@team_model.city} #{@team_model.name}"
       yield player
