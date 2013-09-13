@@ -20,7 +20,7 @@ class OPS
     else
       _numerator.to_f / _denominator
     end
-  rescue NoMethodError
+  rescue NoMethodError, TypeError
     return nil
   end
 

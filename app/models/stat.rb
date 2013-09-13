@@ -6,11 +6,11 @@ class Stat < ActiveRecord::Base
   before_save :write_batting_average
   before_save :write_ops
 
-  def batting_average=
+  def batting_average= val
     raise NotImplementedError.new('This is a computed and cached value.')
   end
 
-  def ops=
+  def ops= val
     raise NotImplementedError.new('This is a computed and cached value.')
   end
 
