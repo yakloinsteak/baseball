@@ -10,4 +10,16 @@ class BaseDecorator < Draper::Decorator
   def _pretty_float num
     "%.4f" % num.to_f
   end
+
+  def _paired_cells_to_rows parts
+    evens = []
+    odds  = []
+
+    parts.each_with_index do |val,idx|
+      evens << val if idx.even?
+      odds  << val if idx.odd?
+    end
+
+    odds.zip(evens).map { |pair| "<tr>#{pair.join}</tr>" }.join.html_safe
+  end
 end

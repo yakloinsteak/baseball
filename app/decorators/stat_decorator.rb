@@ -33,23 +33,20 @@ class StatDecorator < BaseDecorator
     end
   end
 
+  def _important_fields
+    self.class.column_names - _non_important_fields
+  end
+
+  def _non_important_fields
+    ['created_at', 'updated_at', 'id', 'player_id', 'year']
+  end
+
   def all_as_rows
     parts = object.attributes.map do |key, value|
-      next if ['created_at', 'updated_at', 'id', 'player_id', 'year'].include? key
+      next if _non_important_fields.include? key
       "<td><strong class='label label-default'>#{key.titleize}</strong></td><td>#{_nil_to_na value}</td>"
     end.compact
 
-    evens = []
-    odds = []
-    parts.each_with_index do |val,idx|
-      evens << val if idx%2==0
-      odds << val if idx%2==1
-    end
-
-    rows = odds.zip(evens).map do |pair|
-      "<tr>" + pair.join + '</tr>'
-    end
-
-    rows.join.html_safe
+    _paired_cells_to_rows parts
   end
 end
