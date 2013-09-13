@@ -14,6 +14,14 @@ class Stat < ActiveRecord::Base
     raise NotImplementedError.new('This is a computed and cached value.')
   end
 
+  def accumulate_attributes statistics
+    statistics.each do |statistic,value|
+      if value
+        write_attribute(statistic, send(statistic).to_i + value.to_i)
+      end
+    end
+  end
+
   private
 
   def write_batting_average

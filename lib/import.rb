@@ -13,11 +13,9 @@ class Import
          _for_each_player_of team do |player|
             Contract.find_or_create_by(player: @player_model, team: @team_model, year: year, position: @player_position)
 
-            stat = @player_model.stats_for_year(year)
-
-            if stat
-              #TDB: nope, sum them
-              stat.update_attributes(_stat_hash_with_year_for player)
+            if stat = @player_model.stats_for_year(year)
+              stat.accumulate_attributes(_get_stats_for player)
+              stat.save!
             else
               @player_model.stats.create!(_stat_hash_with_year_for player)
             end

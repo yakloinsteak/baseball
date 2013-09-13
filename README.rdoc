@@ -44,6 +44,8 @@
   should be denormalized so that year/player/stats are possibly in the same
   table. I prefer disambiguation.
 
+* All links in the navbar go nowhere.
+
 == Testing
 
 * bundle
