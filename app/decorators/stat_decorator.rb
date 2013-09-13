@@ -36,8 +36,8 @@ class StatDecorator < BaseDecorator
   def all_as_rows
     parts = object.attributes.map do |key, value|
       next if ['created_at', 'updated_at', 'id', 'player_id', 'year'].include? key
-      "<td>#{key.titleize}</td><td>#{_nil_to_na value}</td>"
-    end.flatten
+      "<td><strong class='label label-default'>#{key.titleize}</strong></td><td>#{_nil_to_na value}</td>"
+    end.compact
 
     evens = []
     odds = []

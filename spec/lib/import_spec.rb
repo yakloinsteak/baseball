@@ -92,6 +92,10 @@ describe Import do
     incomplete_player.stats.first.walks.should be_nil
   end
 
+  it "should handle players on multiple teams" do
+    pending
+  end
+
   context "rerunning" do
     before(:each) { do_import }
 

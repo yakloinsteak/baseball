@@ -11,6 +11,8 @@ class Import
        _for_each_team_of division do |team|
          _for_each_player_of team do |player|
             #TDB: Try running import multiple times and checking
+            #TDB: finish cleaning this
+            #TDB: Position overlap if more than one record. check that. Position maybe into contract?
             @player_model.teams << @team_model unless @player_model.teams.include? @team_model
 
             stat = @player_model.stats.where(year: year).first

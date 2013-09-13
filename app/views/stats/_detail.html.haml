@@ -6,18 +6,20 @@
       .modal-header
         %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
         %h4.modal-title
-          =player.name
-          of the
-          =player.team_name
+          =player.title
           %span.badge=stat.year
           %span.label.label-info=player.position
       .modal-body
         %table.table.table-compressed.table-hover
-          %tr
-            %td Division
-            %td=player.team.division.name
-            %td League
-            %td=player.team.division.league.name
-          = stat.all_as_rows
+          %thead
+            - player.teams.each do |team|
+              %tr
+                %td
+                  %strong.label.label-default Division
+                %td=team.division.name
+                %td
+                  %strong.label.label-default League
+                %td=team.division.league.name
+          %tbody= stat.all_as_rows
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
