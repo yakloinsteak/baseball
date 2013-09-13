@@ -3,20 +3,18 @@ class StatDecorator < BaseDecorator
   decorates_association :player
 
   def batting_average
-    _pretty_float object.batting_average
+    h.link_to _pretty_float(object.batting_average), '#', class: 'tip', data: {toggle: "tooltip"}, title: object.batting_average
   end
 
-  #TDB
   def ops
+    (
+      "<small class='text-muted'>#{ops_quality}</small> " +
+      %{<a class="tip" href="#" data-toggle="tooltip" title="#{object.ops}">#{_pretty_float object.ops}</a>}
+    ).html_safe
+  end
 
-    #<span class="label label-default">Default</span>
-    #<span class="label label-primary">Primary</span>
-    #<span class="label label-success">Success</span>
-    #<span class="label label-info">Info</span>
-    #<span class="label label-warning">Warning</span>
-    #<span class="label label-danger">Danger</span>
-
-    val = if object.ops.nil?
+  def ops_quality
+    if object.ops.nil?
       'N/A'
     elsif object.ops >= 0.9000
       'Great'
@@ -33,11 +31,8 @@ class StatDecorator < BaseDecorator
     else
       'Atrocious'
     end
-
-    "<small class='text-muted'>#{val}</small> ".html_safe +  _pretty_float(object.ops)
   end
 
-  #TDB
   def all_as_rows
     parts = object.attributes.map do |key, value|
       next if ['created_at', 'updated_at', 'id', 'player_id', 'year'].include? key

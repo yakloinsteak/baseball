@@ -2,7 +2,7 @@ class PlayerDecorator < BaseDecorator
   delegate_all
 
   def modal_link
-    h.link_to name, "#player_#{object.id}", title: team_name, :class => [:btn, 'btn-primary', 'btn-xs'], "data-toggle" => "modal"
+    h.link_to name, "#player_#{object.id}", title: team_name, :class => [:btn, 'btn-primary', 'btn-xs', 'tip'], "data-toggle" => "modal"
   end
 
   def team_name

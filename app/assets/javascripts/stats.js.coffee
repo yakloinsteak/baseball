@@ -6,4 +6,6 @@ $(document).ready ->
     $('.content').html xhr.responseText
     install_handler()
 
+
   install_handler()
+  $('a.tip').tooltip()
