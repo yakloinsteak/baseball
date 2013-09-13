@@ -1,4 +1,4 @@
-class PlayerDecorator < Draper::Decorator
+class PlayerDecorator < BaseDecorator
   delegate_all
 
   def modal_link

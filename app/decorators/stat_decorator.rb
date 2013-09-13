@@ -1,8 +1,6 @@
-class StatDecorator < Draper::Decorator
+class StatDecorator < BaseDecorator
   delegate_all
   decorates_association :player
-
-  FORMAT = "%.4f"
 
   def batting_average
     _pretty_float object.batting_average
@@ -58,17 +56,5 @@ class StatDecorator < Draper::Decorator
     end
 
     rows.join.html_safe
-  end
-
-  private
-
-  #TDB: put in parent
-  def _nil_to_na val
-    val.nil? ? 'N/A' : val
-  end
-
-  #TDB: put in parent?
-  def _pretty_float num
-    "%.4f" % num.to_f
   end
 end
