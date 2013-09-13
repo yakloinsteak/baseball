@@ -96,10 +96,11 @@ describe Import do
     player.contracts.count.should == 2
   end
 
+  let(:dual_positions) { player.contracts.order(:position).map(&:position) }
+  let(:dual_years)     { player.contracts.map(&:year) }
   it "should associate players' contracts with a year and position" do
-    #TDB
-    player.contracts.order(:position).map(&:position).should == ['Second Base', 'Third Base']
-    player.contracts.map(&:year).should == [1998, 1998]
+    dual_positions.should == ['Second Base', 'Third Base']
+    dual_years.should == [1998, 1998]
   end
 
   context "rerunning" do

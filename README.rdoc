@@ -1,8 +1,17 @@
-== README and Assumptions
+== Assumptions
 
 * Lack of a value in the XML file results in nil for that value (not 0).
 
-* Players can be on multiple teams and have contracts to play a single specific position for a single year.
+* Players can be on multiple teams in a given year.
+  I stugggled with this one since it's not clear to me that a player can be on
+  multiple teams at the same time. On the other hand, there is no other personal
+  information to disambiguate players across years, so I'm forced to assume
+  surname and given name uniquly define a person (which we all know isn't really
+  true). Perhaps position could help, but that wouldn't be reliable if players
+  change positions over years or actually play multiple positions. My main point is
+  that players can be on multiple teams in this demo and that this was on purpose.
+
+* Another implication of previous point is that stats are summed if a player is repeated in the XML.
 
 * http:/en.wikipedia.org/wiki/Batting_average/
   In baseball, the batting average (BA) is defined as the number of hits divided by at bats
@@ -28,6 +37,13 @@
   i.e., the sum of his hits weighted by 1 for a single, 2 for a double, 3 for a triple and 4 for a home run. Only bases attained from hits count toward this
   total_bases = hits + 2 * doubles + 3 * triples + 4 * home_runs
 
+== Bugs/Points for Future Development
+
+* See discussion above about disambiguating player names. We either need more
+  identifying information for players or an understanding that player data
+  should be denormalized so that year/player/stats are possibly in the same
+  table. I prefer disambiguation.
+
 == Testing
 
 * bundle
@@ -39,12 +55,12 @@
 * Draper for presenters (i.e. making view clean)
 * Twitter bootstrap for styling
 * Rspec for unit testing
-* Mostly TDD. Where less familiar with API, tests written afterwards
+* Mostly TDD.
 * Service objects used instead of concerns when not tied to Active Record
 * Concern used for search
-* Fairly strictly adheared to single responsibility principle
+* Fairly strictly adhered to single responsibility principle
 * Red-green-refactor approach used
-* Attempt to keep methods small, understandable, and without comments. The code should be self-explanitory if not commented (in my opinion)
+* Attempt to keep methods small, understandable, and without comments. The code should be self-explanatory if not commented (in my opinion)
 * Underscore convention used to visually mark methods as private.
 * AJAX, coffeescript, and javascript used to load sorted table dynamically
 * Extra feature added allowing user to see all the stats for a user by clicking on their name

@@ -6,28 +6,20 @@ class Import
   end
 
   def execute
+   _delete_stats_for_this_year
    _for_each_league do |league|
      _for_each_division_of league do |division|
        _for_each_team_of division do |team|
          _for_each_player_of team do |player|
-            #TDB: Try running import multiple times and checking
-            #TDB: finish cleaning this
+            Contract.find_or_create_by(player: @player_model, team: @team_model, year: year, position: @player_position)
 
-            @contract = Contract.find_or_create_by(player: @player_model, team: @team_model, year: year, position: @player_position)
-
-            #@player_model.contracts << @team_model unless @player_model.teams.include? @team_model
-
-            #@player_model.teams << @team_model unless @player_model.teams.include? @team_model
-
-            stat = @player_model.stats.where(year: year).first
-
-            attrs = _get_stats_for player
-            attrs[:year] = year
+            stat = @player_model.stats_for_year(year)
 
             if stat
-              stat.update_attributes(attrs)
+              #TDB: nope, sum them
+              stat.update_attributes(_stat_hash_with_year_for player)
             else
-              @player_model.stats.create!(attrs)
+              @player_model.stats.create!(_stat_hash_with_year_for player)
             end
           end
         end
@@ -41,9 +33,13 @@ class Import
 
   private
 
+  def _delete_stats_for_this_year
+    Stat.where(year: year).delete_all
+  end
+
   def _for_each_league
     xml.xpath('/SEASON/LEAGUE').each do |league|
-      league_name = _get_node_value(league, 'LEAGUE_NAME')
+      league_name   = _get_node_value(league, 'LEAGUE_NAME')
       @league_model = League.find_or_create_by(name: league_name)
       yield league
     end
@@ -51,7 +47,7 @@ class Import
 
   def _for_each_division_of league
     league.xpath('DIVISION').each do |division|
-      division_name = _get_node_value(division, 'DIVISION_NAME')
+      division_name   = _get_node_value(division, 'DIVISION_NAME')
       @division_model = Division.find_or_create_by(name: division_name, league: @league_model)
       yield division
     end
@@ -59,8 +55,8 @@ class Import
 
   def _for_each_team_of division
     division.xpath('TEAM').each do |team|
-      team_city = team.at_xpath('TEAM_CITY').inner_text
-      team_name = team.at_xpath('TEAM_NAME').inner_text
+      team_city   = team.at_xpath('TEAM_CITY').inner_text
+      team_name   = team.at_xpath('TEAM_NAME').inner_text
       @team_model = Team.find_or_create_by(city: team_city, name: team_name, division: @division_model)
       yield team
     end
@@ -68,14 +64,18 @@ class Import
 
   def _for_each_player_of team
     team.xpath('PLAYER').each do |player|
-      player_surname = player.at_xpath('SURNAME').inner_text
+      player_surname    = player.at_xpath('SURNAME').inner_text
       player_given_name = player.at_xpath('GIVEN_NAME').inner_text
-      @player_position = player.at_xpath('POSITION').inner_text
-      @player_model = Player.find_or_create_by(surname: player_surname, given_name: player_given_name)
+      @player_position  = player.at_xpath('POSITION').inner_text
+      @player_model     = Player.find_or_create_by(surname: player_surname, given_name: player_given_name)
 
       puts "Created #{@player_model.given_name} of the #{@team_model.city} #{@team_model.name}"
       yield player
     end
+  end
+
+  def _stat_hash_with_year_for player
+    _get_stats_for(player).merge(year: year)
   end
 
   def _get_stats_for player
