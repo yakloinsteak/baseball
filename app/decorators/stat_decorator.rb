@@ -36,7 +36,7 @@ class StatDecorator < Draper::Decorator
       'Atrocious'
     end
 
-    "(#{val}) " +  _pretty_float(object.ops)
+    "<small class='text-muted'>#{val}</small> ".html_safe +  _pretty_float(object.ops)
   end
 
   #TDB
@@ -46,7 +46,6 @@ class StatDecorator < Draper::Decorator
       "<td>#{key.titleize}</td><td>#{_nil_to_na value}</td>"
     end.flatten
 
-
     evens = []
     odds = []
     parts.each_with_index do |val,idx|
@@ -54,7 +53,7 @@ class StatDecorator < Draper::Decorator
       odds << val if idx%2==1
     end
 
-    rows = evens.zip(odds).map do |pair|
+    rows = odds.zip(evens).map do |pair|
       "<tr>" + pair.join + '</tr>'
     end
 

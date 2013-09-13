@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Import do
   def do_import; Import.new(path).execute; end
-  let(:path)           { File.join(Rails.root, 'spec', 'fixtures', 'stats.xml') }
-  before(:each)        { do_import }
-  let(:team)           { Team.first }
-  let(:division)       { Division.first }
-  let(:player)         { Player.order(:surname).first }
+  let(:path)     { File.join(Rails.root, 'spec', 'fixtures', 'stats.xml') }
+  before(:each)  { do_import }
+  let(:team)     { Team.first }
+  let(:division) { Division.first }
+  let(:player)   { Player.order(:surname).first }
   let(:incomplete_player) { Player.order(:surname).second }
-  let(:league)         { League.first }
+  let(:league)   { League.first }
 
   it "should import correct number leagues" do
     League.count.should == 1
