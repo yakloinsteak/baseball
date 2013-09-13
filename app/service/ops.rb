@@ -14,10 +14,12 @@ class OPS
     hits + 2 * doubles + 3 * triples + 4 * home_runs
   end
 
-  #TDB
   def value
-    return nil if _denominator == 0
-    _numerator.to_f / _denominator
+    if _denominator == 0
+      nil
+    else
+      _numerator.to_f / _denominator
+    end
   rescue NoMethodError
     return nil
   end
@@ -26,16 +28,14 @@ class OPS
 
   def _numerator
     at_bats * (hits + walks + hit_by_pitch) +
-    total_bases * _magic_sum
+    total_bases * _potential_bases
   end
 
   def _denominator
-    at_bats * _magic_sum
+    at_bats * _potential_bases
   end
 
-  #TDB
-  # FIXME: what would you call this?
-  def _magic_sum
+  def _potential_bases
     at_bats + walks + sacrifice_flies + hit_by_pitch
   end
 end
