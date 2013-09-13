@@ -13,29 +13,29 @@
 
 * Another implication of previous point is that stats are summed if a player is repeated in the XML.
 
-* http:/en.wikipedia.org/wiki/Batting_average/
+* http:/en.wikipedia.org/wiki/Batting_average
   In baseball, the batting average (BA) is defined as the number of hits divided by at bats
 
 * Assuming hits means a single base
 
-* http://en.wikipedia.org/wiki/On-base_plus_slugging/
-  H = Hits
-  BB = Base on balls
-  HBP = Times hit by pitch
-  AB = At bats
-  SF = Sacrifice flies
-  TB = Total bases
+* http://en.wikipedia.org/wiki/On-base_plus_slugging
+    H = Hits
+    BB = Base on balls
+    HBP = Times hit by pitch
+    AB = At bats
+    SF = Sacrifice flies
+    TB = Total bases
 
   In one equation, OPS can be represented as:
 
-  ops = (ab * (h + bb + hbp) + tb * (ab + bb + sf + hbp)) / (ab * (ab + bb + sf + hbp))
+    ops = (ab * (h + bb + hbp) + tb * (ab + bb + sf + hbp)) / (ab * (ab + bb + sf + hbp))
 
   Translation:
-  ops = (at_bats * (hits + walks + hit_by_pitch) + total_bases * (at_bats + walks + sacrifice_flies + hit_by_pitch)) / (at_bats * (at_bats + walks + sacrifice_flies + hit_by_pitch))
+    ops = (at_bats * (hits + walks + hit_by_pitch) + total_bases * (at_bats + walks + sacrifice_flies + hit_by_pitch)) / (at_bats * (at_bats + walks + sacrifice_flies + hit_by_pitch))
 
-* http:/en.wikipedia.org/wiki/Total_bases/
+* http:/en.wikipedia.org/wiki/Total_bases
   i.e., the sum of his hits weighted by 1 for a single, 2 for a double, 3 for a triple and 4 for a home run. Only bases attained from hits count toward this
-  total_bases = hits + 2 * doubles + 3 * triples + 4 * home_runs
+    total_bases = hits + 2 * doubles + 3 * triples + 4 * home_runs
 
 == Bugs/Points for Future Development
 
