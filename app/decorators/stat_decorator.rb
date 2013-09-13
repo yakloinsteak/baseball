@@ -36,19 +36,39 @@ class StatDecorator < Draper::Decorator
       'Atrocious'
     end
 
-    _pretty_float(object.ops) + " (#{val})"
+    "(#{val}) " +  _pretty_float(object.ops)
   end
 
   #TDB
   def all_as_rows
-    object.attributes.map do |key, value|
+    parts = object.attributes.map do |key, value|
       next if ['created_at', 'updated_at', 'id', 'player_id', 'year'].include? key
-      "<tr><td>#{key.titleize}</td><td>#{value}</td></tr>"
-    end.flatten.join.html_safe
+      "<td>#{key.titleize}</td><td>#{_nil_to_na value}</td>"
+    end.flatten
+
+
+    evens = []
+    odds = []
+    parts.each_with_index do |val,idx|
+      evens << val if idx%2==0
+      odds << val if idx%2==1
+    end
+
+    rows = evens.zip(odds).map do |pair|
+      "<tr>" + pair.join + '</tr>'
+    end
+
+    rows.join.html_safe
   end
 
   private
 
+  #TDB: put in parent
+  def _nil_to_na val
+    val.nil? ? 'N/A' : val
+  end
+
+  #TDB: put in parent?
   def _pretty_float num
     "%.4f" % num.to_f
   end

@@ -8,21 +8,21 @@
         %td
         %td Name
         %td Position
-        %td.sortable= stats_link_to 'Batting Average', 'batting_average desc'
-        %td.sortable= stats_link_to 'Home Runs', 'home_runs desc'
-        %td.sortable= stats_link_to 'RBI', 'rbi desc'
-        %td.sortable= stats_link_to 'Runs', 'runs desc'
-        %td.sortable= stats_link_to 'Steals', 'steals desc'
-        %td.sortable= stats_link_to 'OPS', 'ops desc'
+        %td.sortable.right= stats_link_to 'Batting Average', 'batting_average desc'
+        %td.sortable.right= stats_link_to 'Home Runs', 'home_runs desc'
+        %td.sortable.right= stats_link_to 'Runs Batted In', 'rbi desc'
+        %td.sortable.right= stats_link_to 'Runs', 'runs desc'
+        %td.sortable.right= stats_link_to 'Stolen Bases', 'steals desc'
+        %td.sortable.right= stats_link_to 'On-base Plus Slugging', 'ops desc'
     %tbody
       - @stats.each_with_index do |stat, index|
         %tr
           %td= index+1
           %td= render partial: 'detail', locals: {player: stat.player, stat: stat}
           %td= stat.player.position
-          %td= stat.batting_average
-          %td= stat.home_runs
-          %td= stat.rbi
-          %td= stat.runs
-          %td= stat.steals
-          %td= stat.ops
+          %td.right= stat.batting_average
+          %td.right= stat.home_runs
+          %td.right= stat.rbi
+          %td.right= stat.runs
+          %td.right= stat.steals
+          %td.right= stat.ops
