@@ -8,12 +8,12 @@
         %td
         %td Name
         %td Position
-        %td.sortable.text-right= stats_link_to 'Batting Average', 'batting_average desc'
-        %td.sortable.text-right= stats_link_to 'Home Runs', 'home_runs desc'
-        %td.sortable.text-right= stats_link_to 'Runs Batted In', 'rbi desc'
-        %td.sortable.text-right= stats_link_to 'Runs', 'runs desc'
-        %td.sortable.text-right= stats_link_to 'Stolen Bases', 'steals desc'
-        %td.sortable.text-right= stats_link_to 'On-base Plus Slugging', 'ops desc'
+        %td.sortable.text-right= sortable_link_to 'Batting Average', 'batting_average desc'
+        %td.sortable.text-right= sortable_link_to 'Home Runs', 'home_runs desc'
+        %td.sortable.text-right= sortable_link_to 'Runs Batted In', 'rbi desc'
+        %td.sortable.text-right= sortable_link_to 'Runs', 'runs desc'
+        %td.sortable.text-right= sortable_link_to 'Stolen Bases', 'steals desc'
+        %td.sortable.text-right= sortable_link_to 'On-base Plus Slugging', 'ops desc'
     %tbody
       - @stats.each_with_index do |stat, index|
         %tr
