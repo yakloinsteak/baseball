@@ -43,4 +43,5 @@ group :test do
   gem 'rspec'
   gem 'rspec-rails', '~> 2.0'
   gem 'guard-rspec'
+  gem 'capybara'
 end

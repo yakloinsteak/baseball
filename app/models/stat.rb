@@ -1,5 +1,5 @@
 class Stat < ActiveRecord::Base
-  include Sortable
+  include Searchable
 
   belongs_to :player
 

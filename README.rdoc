@@ -1,6 +1,6 @@
 == README and Assumptions
 
-* Lack of a value in the XML file results in zero for that value (not nil/undefined).
+* Lack of a value in the XML file results in nil for that value (not 0).
 
 * http:/en.wikipedia.org/wiki/Batting_average/
   In baseball, the batting average (BA) is defined as the number of hits divided by at bats
@@ -25,3 +25,27 @@
 * http:/en.wikipedia.org/wiki/Total_bases/
   i.e., the sum of his hits weighted by 1 for a single, 2 for a double, 3 for a triple and 4 for a home run. Only bases attained from hits count toward this
   total_bases = hits + 2 * doubles + 3 * triples + 4 * home_runs
+
+== Testing
+
+* bundle
+* rspec --color spec
+
+== Highlights
+
+* Memcache for caching
+* Draper for presenters (i.e. making view clean)
+* Twitter bootstrap for styling
+* Rspec for unit testing
+* Mostly TDD. Where less familiar with API, tests written afterwards
+* Service objects used instead of concerns when not tied to Active Record
+* Concern used for search
+* Fairly strictly adheared to single responsibility principle
+* Red-green-refactor approach used
+* Attempt to keep methods small, understandable, and without comments. The code should be self-explanitory if not commented (in my opinion)
+* Underscore convention used to visually mark methods as private.
+* AJAX, coffeescript, and javascript used to load sorted table dynamically
+* Extra feature added allowing user to see all the stats for a user by clicking on their name
+* mouse-over floating-point values shows you the non-truncated value
+* Nokogiri/xpath harnessed to parse XML
+* Database normalization and associations added. Did not tackle the potential for players to switch teams.
