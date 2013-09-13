@@ -5,6 +5,12 @@ class PlayerDecorator < BaseDecorator
     name + ' of the ' + team_names
   end
 
+  def position
+    contracts.map do |contract|
+      contract.position
+    end.sort.join('/')
+  end
+
   def modal_link
     h.link_to name, "#player_#{object.id}", title: team_names, :class => [:btn, 'btn-primary', 'btn-xs', 'tip'], "data-toggle" => "modal"
   end

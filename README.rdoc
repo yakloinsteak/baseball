@@ -50,4 +50,5 @@
 * Extra feature added allowing user to see all the stats for a user by clicking on their name
 * mouse-over floating-point values shows you the non-truncated value
 * Nokogiri/xpath harnessed to parse XML
-* Database normalization and associations added. Did not tackle the potential for players to switch teams.
+* Database normalization and associations added.
+* N+1 problems avoided on database layer by preloading associations.

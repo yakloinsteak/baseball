@@ -42,7 +42,6 @@ describe Import do
   it "should import player name" do
     player.surname.should == 'Malloy'
     player.given_name.should == 'Marty'
-    player.position.should == 'Second Base/Third Base'
   end
 
   it "should import player team" do
