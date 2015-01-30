@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.2.0'
 
 # Core OO and MVC
 gem 'rails', '4.0.0'
@@ -33,11 +33,6 @@ gem 'foreman'
 gem 'pry'
 gem 'awesome_print'
 #gem 'byebug'
-
-group :production do
-  # Logging on Heroku
-  gem 'rails_12factor'
-end
 
 group :test do
   gem 'rspec'
